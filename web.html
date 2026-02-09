@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine 💘</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background: pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 320px;
+    }
+
+    img {
+      width: 100%;
+      max-width: 150px;
+      height: auto;
+      border-radius: 15px;
+    }
+
+    h2 {
+      margin-top: 15px;
+    }
+
+    .card div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 18px;
+      margin: 8px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: #ccc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #yay {
+      font-size: 1.5rem;
+      color: #ff4d6d;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      #yay {
+        font-size: 1.5rem;
+      }
+
+      button {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <form>
+      <img src="https://media.tenor.com/Sgm08KwmJxwAAAAM/dog-holding-flower.gif" alt="cute" />
+      <h2>Will you be my Valentine? 💘</h2>
+
+      <div>
+        <button type="button" id="yesBtn">Yes 💖</button>
+        <button type="button" id="noBtn">No 💔</button>
+      </div>
+    </form>
+
+    <section id="areYouSure" class="hidden">
+      <p>Are you sure? 🥺</p>
+    </section>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const areYouSure = document.getElementById("areYouSure");
+
+    let noClicks = 0;
+    let yesScale = 1;
+
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+
+      if (noClicks === 1) {
+        areYouSure.classList.remove("hidden");
+        return;
+      }
+
+      yesScale += 0.50;
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      if (yesScale > 3) {
+        yesBtn.style.position = "fixed";
+        yesBtn.style.inset = "0";
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.fontSize = "clamp(24px, 6vw, 48px)";
+        yesBtn.style.display = "flex";
+        yesBtn.style.alignItems = "center";
+        yesBtn.style.justifyContent = "center";
+        noBtn.style.display = "none";
+      }
+    });
+
+    yesBtn.addEventListener("click", () => {
+      document.querySelector(".card").innerHTML = `
+        <section id="yay">
+          <img src="https://media.tenor.com/22w_5_1Iee8AAAAM/monkey-lick.gif" alt="mwah" />
+          <p>Yay!! I’ll see you 💕🎉</p>
+        </section>
+      `;
+    });
+  </script>
+
+</body>
+</html>
