@@ -23,7 +23,8 @@
       text-align: center;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       width: 90%;
-      max-width: 320px;
+      height: auto;
+      max-width: 500px;
     }
 
     img {
@@ -82,33 +83,98 @@
 
       button {
         width: 100%;
-        max-width: 200px;
+        max-width: none;
       }
     }
+
+      #gif {
+        width: 80vh;
+        max-width: none;
+        object-fit: fill;
+      }
+
+      #gift{
+        height: 100vh;
+        width: auto;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: -1;
+
+        background: rgba(255, 255, 255, 0.2); 
+        backdrop-filter: blur(10px);          
+        -webkit-backdrop-filter: blur(10px); 
+        
+        border: 1px solid rgba(255, 255, 255, 0.3); 
+        border-radius: 15px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      }
+
   </style>
 </head>
 <body>
 
-  <div class="card">
+  <div class="card" id="card">
     <form>
+      <section id="index">
+        
       <img src="https://media.tenor.com/Sgm08KwmJxwAAAAM/dog-holding-flower.gif" alt="cute" />
       <h2>Will you be my Valentine? 💘</h2>
+      </section>
+
+      <section id="areYouSure" class="hidden">
+        <div> 
+        <img src="https://media.tenor.com/7hrGDG5b4r0AAAAM/hmm-sure.gif" alt="Are you Sure?" id="gif" /> </div>
+        <h2>Be my Valentine!</h2>
+      </section>
+
+      <section id="please" class="hidden">
+        <div>
+        <img src="https://media.tenor.com/0yJbcfwQyu8AAAAM/cry-crying.gif" alt="Please?" id="gif" />
+        </div>
+        <h2>Please? 🥺🙏</h2>
+      </section>
+
+      <section id="cgena" class="hidden">
+        <div>
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWRhbXI4ZW5wMGFmbDlqdHMyeHBpaHd1dmhhcHp5emsydmR4cThndiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7AzEXdIb1wyCTWJntb/giphy.gif" alt="Please?" id="gif" />
+        </div>
+        <h2>Sige na Please? 🥺🙏</h2>
+      </section>
+
+      <section id="lastChance" class="hidden">
+        <div>
+        <img src="https://media.tenor.com/ULWGArTn8gsAAAAe/dog-shooting.png" alt="Please?" id="gif" />
+          <div id="last" style="z-index: 1;">
+          <h2>Last Chance! Be my Valentine!❤</h2>
+          </div>
+        </div>
+      </section>
 
       <div>
         <button type="button" id="yesBtn">Yes 💖</button>
         <button type="button" id="noBtn">No 💔</button>
       </div>
     </form>
-
-    <section id="areYouSure" class="hidden">
-      <p>Are you sure? 🥺</p>
-    </section>
   </div>
+
+    <div id="gift" class="hidden">
+      <img src="https://media.tenor.com/0imRtuzqccIAAAAi/bubu-dudu-flower-gift.gif">
+    </div>
 
   <script>
     const noBtn = document.getElementById("noBtn");
     const yesBtn = document.getElementById("yesBtn");
     const areYouSure = document.getElementById("areYouSure");
+    const index = document.getElementById("index");
+    const please = document.getElementById("please");
+    const cgena = document.getElementById("cgena");
+    const lastChance = document.getElementById("lastChance");
+    const last = document.getElementById("last");
+    const gift = document.getElementById("gift");
+    const card = document.getElementById("card");
 
     let noClicks = 0;
     let yesScale = 1;
@@ -116,15 +182,38 @@
     noBtn.addEventListener("click", () => {
       noClicks++;
 
-      if (noClicks === 1) {
-        areYouSure.classList.remove("hidden");
-        return;
-      }
 
       yesScale += 0.50;
       yesBtn.style.transform = `scale(${yesScale})`;
 
+      switch (noClicks) {
+        case 1:
+          areYouSure.classList.remove("hidden");
+          index.classList.add("hidden");
+          return;
+          break;
+
+        case 2:
+          areYouSure.classList.add("hidden");
+          please.classList.remove("hidden");
+          return;
+          break;
+
+        case 3: 
+          please.classList.add("hidden");
+          cgena.classList.remove("hidden");
+          return;
+          break;
+
+        case 4: 
+          cgena.classList.add("hidden");
+          lastChance.classList.remove("hidden");
+          return;
+          break;
+      }
+
       if (yesScale > 3) {
+        last.style.zIndex = 0;
         yesBtn.style.position = "fixed";
         yesBtn.style.inset = "0";
         yesBtn.style.width = "100vw";
@@ -141,8 +230,18 @@
       document.querySelector(".card").innerHTML = `
         <section id="yay">
           <img src="https://media.tenor.com/22w_5_1Iee8AAAAM/monkey-lick.gif" alt="mwah" />
-          <p>Yay!! I’ll see you 💕🎉</p>
+          <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNmdoY2dsZjFmdHZtYzdoOHFsNTAxOWdhcjJ2d2kzMjE4OWF5Zm9naSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/exUgjvyJF451IGaRpH/giphy.gif" alt="mwah" />
+
+          <p>Yay!! I’ll see you on February 14. 2026💕🎉</p>
+          <small>I love you😘</small>
         </section>
+
+        <button 
+          style="background: #ff4d6d; color: white;" 
+          onclick="document.getElementById('gift').classList.remove('hidden'); document.getElementById('card').classList.add('hidden')"
+          > 
+          Please Accept my Gift 💐
+        </button>
       `;
     });
   </script>
